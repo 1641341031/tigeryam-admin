@@ -1,16 +1,16 @@
 <script setup>
 import { Navbar, Sidebar, AppMain } from './components/index.js'
 import { onBeforeMount, onMounted, watch, computed } from 'vue'
-import { useAppStore } from '@/stores/app.js'
+import { useAppStore } from '@/store/app.js'
 import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
 
 const { body } = document
 const WIDTH = 1024
 const RATIO = 3
 
 const appStore = useAppStore()
-const {sidebar, device} = storeToRefs(appStore)
+let sidebar = appStore.sidebar
+let device = appStore.device
 
 const route = useRoute()
 
@@ -68,7 +68,7 @@ computed(()=>{
     <div class="app-wrapper" :class="classObj">
       <sidebar class="sidebar-container"></sidebar>
       <div class="main-container">
-        <navbar></navbar>
+        <navbar/>
         <app-main></app-main>
       </div>
     </div>

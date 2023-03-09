@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { getToken, setToken, removeToken } from '@/utils/auth.js'
-import { login, logout } from '@/api/login.js'
+import { login, logout, getInfo } from '@/api/login.js'
 
 export const useUserStore = defineStore('user', {
     state: () => {
@@ -13,16 +13,16 @@ export const useUserStore = defineStore('user', {
     },
     actions: {
         set_token(token){
-            state.token = token
+            this.token = token
         },
         set_name(name){
-            state.name = name
+            this.name = name
         },
         set_avatar(avatar){
-            state.avatar = avatar
+            this.avatar = avatar
         },
         set_roles(roles){
-            state.roles = roles
+            this.roles = roles
         },
         // 登录
         Login(userInfo){
@@ -51,5 +51,32 @@ export const useUserStore = defineStore('user', {
                 })
             })
         },
+        async getUserInfo(){
+            try {
+                return await new Promise((resolve, reject) => {
+                    getInfo().then(response => {
+                        const {data} = response.data
+                        if (data.roles && data.roles.length > 0) {
+                            this.set_roles(data.roles)
+                        } else {
+                            reject('getInfo: roles must be a non-null array !')
+                        }
+                        this.set_name(data.username)
+                        this.set_avatar(data.icon)
+                        resolve(response)
+                    })
+                })
+            } catch (error) {
+                reject(error)
+            }
+        },
+        FedLogOut(){
+            return new Promise(resolve => {
+                this.set_token('')
+                removeToken()
+                resolve()
+            })
+            
+        }
     }
 })

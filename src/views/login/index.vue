@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue';
-import { login } from '@/api/login'
-import { setToken } from '@/utils/auth'
-import router from '@/router/index'
+import { login } from '@/api/login.js'
+import { setToken } from '@/utils/auth.js'
 import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 let username = ref("");
 let password = ref("");
 let code = ref("");
@@ -12,12 +13,12 @@ let code = ref("");
 async function submit(){
     try{
         const result = await login(username.value, password.value)
-        let { data } = result.data
-        if(result.data.code === 200){
-            const tokenStr = data.tokenHead + data.token;
-            setToken(tokenStr);
-            router.push({ path: '/home' });
-        }else{
+        let {data} = result.data
+        if (result.data.code === 200){
+            const tokenStr = data.tokenHead + data.token
+            setToken(tokenStr)
+            router.push({path: '/'})
+        } else {
             ElMessage.error(result.data.message)
         }
     } catch (e){

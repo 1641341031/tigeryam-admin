@@ -1,16 +1,16 @@
 <script setup>
 import SidebarItem from './SidebarItem.vue'
 import ScrollBar from '@/components/ScrollBar/index.vue'
-import { useAppStore } from '@/stores/app.js'
-import { usePermissionStore } from '@/stores/permission.js'
+import { useAppStore } from '@/store/app.js'
+import { usePermissionStore } from '@/store/permission.js'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 
 const appStore = useAppStore()
-const {sidebar} = storeToRefs(appStore)
+let {sidebar} = storeToRefs(appStore)
 const permissionStore = usePermissionStore()
-const { routes } = storeToRefs(permissionStore)
+let { routes } = storeToRefs(permissionStore)
 const route = useRoute()
 
 computed(() => {

@@ -1,4 +1,4 @@
-import { asyncRouterMap, constantRouterMap } from '@/router/index';
+import { asyncRouterMap, constantRouterMap } from '@/router/index.js';
 import { defineStore } from 'pinia'
 
 //判断是否有权限访问该菜单
@@ -68,16 +68,16 @@ function compare(p){
 export const usePermissionStore = defineStore('permission',{
     state: ()=>{
         return {
-            routes: constantRouterMap,
+            routers: constantRouterMap,
             addRouters: []
         }
     },
     actions: {
-        SET_ROUTERS: (routers) => {
-            state.addRouters = routers
-            state.routers = constantRouterMap.concat(routers)
-        },
-        GenerateRoutes: (data) => {
+      setRouters(routers){
+        this.addRouters = routers
+        this.routers = constantRouterMap.concat(routers)
+      },
+      GenerateRoutes(data){
             return new Promise( resolve => {
                 const { menus } = data;
                 const { username } = data;
@@ -98,6 +98,7 @@ export const usePermissionStore = defineStore('permission',{
                     return false
                 })
                 sortRouters(accessedRouters)
+                this.setRouters(accessedRouters)
                 resolve()
             })
         }

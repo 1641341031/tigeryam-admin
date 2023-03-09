@@ -1,8 +1,8 @@
 <script setup>
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
-import { useAppStore } from '@/stores/app.js'
-import { useUserStore } from '@/stores/user.js'
+import { useAppStore } from '@/store/app.js'
+import { useUserStore } from '@/store/user.js'
 import { storeToRefs } from 'pinia'
 
 const sidebar = storeToRefs(useAppStore) // 使用解构得使用storeToRefs()函数

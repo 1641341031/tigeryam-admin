@@ -12,8 +12,15 @@ export function login(username, password) {
 }
 
 export function logout() {
-    return request({
+    return service({
       url: '/admin/logout',
       method: 'post'
     })
   }
+
+export function getInfo() {
+  return service({
+    url: '/admin/info',
+    method: 'get'
+  })
+}
