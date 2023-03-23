@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import { login } from '@/api/login.js'
 import { setToken } from '@/utils/auth.js'
-import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

@@ -15,21 +15,21 @@ export const useAppStore = defineStore('app', {
         
     },
     actions: {
-        ToggleSideBar: state => {
-            if (state.sidebar.opened) {
+        ToggleSideBar(){
+            if (this.sidebar.opened) {
                 Cookies.set('sidebarStatus', 1)
             } else {
                 Cookies.set('sidebarStatus', 0)
             }
-              state.sidebar.opened = !state.sidebar.opened
+              this.sidebar.opened = !this.sidebar.opened
         },
-        CloseSideBar: (state, withoutAnimation) => {
+        CloseSideBar(withoutAnimation) {
             Cookies.set('sidebarStatus', 1)
-            state.sidebar.opened = false
-            state.sidebar.withoutAnimation = withoutAnimation
+            this.sidebar.opened = false
+            this.sidebar.withoutAnimation = withoutAnimation
         },
-        ToggleDevice: (state, device) => {
-            state.device = device
+        ToggleDevice(device) {
+            this.device = device
         }
     }
 })

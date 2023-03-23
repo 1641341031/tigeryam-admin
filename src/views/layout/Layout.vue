@@ -1,5 +1,7 @@
 <script setup>
-import { Navbar, Sidebar, AppMain } from './components/index.js'
+import Sidebar from './components/Sidebar/index.vue'
+import Navbar from './components/Navbar.vue'
+import AppMain from './components/AppMain.vue'
 import { onBeforeMount, onMounted, watch, computed } from 'vue'
 import { useAppStore } from '@/store/app.js'
 import { useRoute } from 'vue-router'
@@ -24,22 +26,26 @@ onBeforeMount(() => {
     window.addEventListener('resize', resizeHandler)
 })
 
-onMounted(()=>{
-    const isMobile = isMobile()
-    if(isMobile){
-        appStore.ToggleDevice('mobile')
-        appStore.CloseSideBar({ withoutAnimation: true })
-    }
-})
+// function isMobile(){
+//   const rect = body.getBoundingClientRect()
+//   return rect.width - RATIO < WIDTH
+// }
 
-function isMobile(){
+onMounted(() => {
   const rect = body.getBoundingClientRect()
-  return rect.width - RATIO < WIDTH
-}
+  const isMobile = rect.width - RATIO < WIDTH
+  // const isMobile = isMobile()
+  if(isMobile){
+      appStore.ToggleDevice('mobile')
+      appStore.CloseSideBar({ withoutAnimation: true })
+  }
+})
 
 function resizeHandler(){
     if(!document.hidden){
-        const isMobile = isMobile()
+      const rect = body.getBoundingClientRect()
+      const isMobile = rect.width - RATIO < WIDTH
+        //const isMobile = isMobile()
         appStore.ToggleDevice(isMobile ? 'mobile' : 'desktop')
         if(isMobile){
             appStore.CloseSideBar({ withoutAnimation: true })
@@ -47,29 +53,21 @@ function resizeHandler(){
     }
 }
 
-computed(()=>{
-  sidebar = ()=>{
-    return appStore.sidebar
-  },
-  device = ()=>{
-    return appStore.device
-  },
-  classObj = ()=>{
-    return {
+const classObj = computed(()=>{
+   return {
       hideSidebar: !sidebar.opened,
       withoutAnimation: sidebar.withoutAnimation,
       mobile: device === 'mobile'
     }
-  }
 })
 </script>
 
 <template>
     <div class="app-wrapper" :class="classObj">
-      <sidebar class="sidebar-container"></sidebar>
+      <Sidebar class="sidebar-container" />
       <div class="main-container">
-        <navbar/>
-        <app-main></app-main>
+        <Navbar />
+        <AppMain />
       </div>
     </div>
 </template>

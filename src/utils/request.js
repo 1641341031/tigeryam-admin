@@ -3,8 +3,7 @@ import { getToken } from '@/utils/auth.js'
 
 // 创建axios实例
 const service = axios.create({
-    baseURL: "http://192.168.1.7:8091", // api的base_url
-    // baseURL: "/api",
+    baseURL: "/api",
     timeout: 15000 // 请求超时时间
   })
 

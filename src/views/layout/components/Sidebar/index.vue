@@ -1,31 +1,29 @@
 <script setup>
 import SidebarItem from './SidebarItem.vue'
-import ScrollBar from '@/components/ScrollBar/index.vue'
 import { useAppStore } from '@/store/app.js'
 import { usePermissionStore } from '@/store/permission.js'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import ScrollBar from '@/components/ScrollBar/index.vue'
 
-const appStore = useAppStore()
-let {sidebar} = storeToRefs(appStore)
-const permissionStore = usePermissionStore()
-let { routes } = storeToRefs(permissionStore)
+// let {sidebar} = storeToRefs(useAppStore())
+// let { routers } = storeToRefs(usePermissionStore())
+let {sidebar} = useAppStore()
+let { routers } = usePermissionStore()
 const route = useRoute()
 
-computed(() => {
-    routes = () => {return routes},
-    isCollapse = () => {
-        return !sidebar.opend
-    }
+const isCollapse = computed(() => {
+    return !sidebar.opened
 })
 </script>
 
 <template>
-    <scroll-bar>
+    <ScrollBar>
         <el-menu mode="vertical" :show-timeout="200" :default-active="route.path" :collapse="isCollapse"
-            background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
-            <sidebar-item :routes="routes"></sidebar-item>
+        background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
+        <SidebarItem :routes="routers"></SidebarItem>
         </el-menu>
-</scroll-bar>
+    </ScrollBar>
+    
 </template>

@@ -1,49 +1,56 @@
 <script setup>
-import Breadcrumb from '@/components/Breadcrumb/index.vue'
-import Hamburger from '@/components/Hamburger/index.vue'
-import { useAppStore } from '@/store/app.js'
-import { useUserStore } from '@/store/user.js'
-import { storeToRefs } from 'pinia'
+import Breadcrumb from "@/components/Breadcrumb/index.vue";
+import Hamburger from "@/components/Hamburger/index.vue";
+import { useAppStore } from "@/store/app.js";
+import { useUserStore } from "@/store/user.js";
+import { storeToRefs } from "pinia";
 
-const sidebar = storeToRefs(useAppStore) // 使用解构得使用storeToRefs()函数
-const avatar = storeToRefs(useUserStore)
+import { ArrowDown } from "@element-plus/icons-vue";
 
+const {sidebar} = storeToRefs(useAppStore()); // 使用解构得使用storeToRefs()函数
+const {avatar} = storeToRefs(useUserStore());
 
-function toggleSideBar(){
-  const appStore = useAppStore()
-  appStore.ToggleSideBar()
+function toggleSideBar() {
+  const appStore = useAppStore();
+  appStore.ToggleSideBar();
 }
 
-function logout(){
-  const userStore = useUserStore()
+function logout() {
+  const userStore = useUserStore();
   userStore.LogOut().then(() => {
-    location.reload() // 为了重新实例化vue-router对象 避免bug
-  })
+    location.reload(); // 为了重新实例化vue-router对象 避免bug
+  });
 }
 </script>
 
 <template>
-    <el-menu class="navbar" mode="horizontal">
-      <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-      <breadcrumb></breadcrumb>
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar">
-          <i class="el-icon-caret-bottom"></i>
-        </div>
-        <el-dropdown-menu class="user-dropdown" slot="dropdown">
+  <el-menu class="navbar" mode="horizontal">
+    <hamburger
+      class="hamburger-container"
+      :toggleClick="toggleSideBar"
+      :isActive="sidebar.opened"
+    ></hamburger>
+    <breadcrumb></breadcrumb>
+    <el-dropdown class="avatar-container" trigger="click">
+      <div class="avatar-wrapper">
+        <img class="user-avatar" :src="avatar" />
+        <el-icon class="el-icon--right">
+          <arrow-down />
+        </el-icon>
+      </div>
+      <template #dropdown>
+        <el-dropdown-menu class="user-dropdown">
           <router-link class="inlineBlock" to="/">
-            <el-dropdown-item>
-              首页
-            </el-dropdown-item>
+            <el-dropdown-item> 首页 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
-            <span @click="logout" style="display:block;">退出</span>
+            <span @click="logout" style="display: block">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
-    </el-menu>
-  </template>
+      </template>
+    </el-dropdown>
+  </el-menu>
+</template>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .navbar {
@@ -75,12 +82,6 @@ function logout(){
         width: 40px;
         height: 40px;
         border-radius: 10px;
-      }
-      .el-icon-caret-bottom {
-        position: absolute;
-        right: -20px;
-        top: 25px;
-        font-size: 12px;
       }
     }
   }

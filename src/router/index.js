@@ -5,7 +5,6 @@ import Layout from '../views/layout/Layout.vue'
 
 export const constantRouterMap = [
   {path: '/login', component: () => import('../views/login/index.vue'), hidden: true},
-  {path: '/test', component: () => {import('../views/login/Test.vue')}},
   {
     path: '',
     component: Layout,
@@ -13,7 +12,7 @@ export const constantRouterMap = [
     children: [{
       path: 'home',
       name: 'home',
-      component: () => import('../views/login/Test.vue'),
+      component: () => import('../views/home/index.vue'),
       meta: {title: '首页', icon: 'home'}
     }]
   }
@@ -30,7 +29,7 @@ export const asyncRouterMap = [
       {
         path: 'admin',
         name: 'admin',
-        component: () => import('@/views/ums/admin/index'),
+        component: () => import('@/views/ums/admin/index.vue'),
         meta: {title: '用户列表', icon: 'ums-admin'}
       },
       {
@@ -87,8 +86,7 @@ export const asyncRouterMap = [
         hidden: true
       }
     ]
-  },
-  {path: '*', redirect: '/test', hidden: true}
+  }
 ]
 
 const router = createRouter({

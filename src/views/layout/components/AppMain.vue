@@ -1,3 +1,7 @@
+<script setup>
+
+</script>
+
 <template>
     <section class="app-main">
         <transition name="fade" mode="out-in">
@@ -5,3 +9,4 @@
         </transition>
     </section>
 </template>
+
