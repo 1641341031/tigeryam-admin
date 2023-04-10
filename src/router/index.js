@@ -20,6 +20,154 @@ export const constantRouterMap = [
 
 export const asyncRouterMap = [
   {
+    path: '/pms',
+    component: Layout,
+    redirect: '/pms/product',
+    name: 'pms',
+    meta: {title: '商品', icon: 'product'},
+    children: [{
+      path: 'product',
+      name: 'product',
+      component: () => import('@/views/pms/product/index.vue'),
+      meta: {title: '商品列表', icon: 'product-list'}
+    },
+      {
+        path: 'addProduct',
+        name: 'addProduct',
+        component: () => import('@/views/pms/product/add.vue'),
+        meta: {title: '添加商品', icon: 'product-add'}
+      },
+      {
+        path: 'updateProduct',
+        name: 'updateProduct',
+        component: () => import('@/views/pms/product/update.vue'),
+        meta: {title: '修改商品', icon: 'product-add'},
+        hidden: true
+      },
+      {
+        path: 'productCate',
+        name: 'productCate',
+        component: () => import('@/views/pms/productCate/index.vue'),
+        meta: {title: '商品分类', icon: 'product-cate'}
+      },
+      {
+        path: 'addProductCate',
+        name: 'addProductCate',
+        component: () => import('@/views/pms/productCate/add.vue'),
+        meta: {title: '添加商品分类'},
+        hidden: true
+      },
+      {
+        path: 'updateProductCate',
+        name: 'updateProductCate',
+        component: () => import('@/views/pms/productCate/update.vue'),
+        meta: {title: '修改商品分类'},
+        hidden: true
+      },
+      {
+        path: 'productAttr',
+        name: 'productAttr',
+        component: () => import('@/views/pms/productAttr/index.vue'),
+        meta: {title: '商品类型', icon: 'product-attr'}
+      },
+      {
+        path: 'productAttrList',
+        name: 'productAttrList',
+        component: () => import('@/views/pms/productAttr/productAttrList.vue'),
+        meta: {title: '商品属性列表'},
+        hidden: true
+      },
+      {
+        path: 'addProductAttr',
+        name: 'addProductAttr',
+        component: () => import('@/views/pms/productAttr/addProductAttr.vue'),
+        meta: {title: '添加商品属性'},
+        hidden: true
+      },
+      {
+        path: 'updateProductAttr',
+        name: 'updateProductAttr',
+        component: () => import('@/views/pms/productAttr/updateProductAttr.vue'),
+        meta: {title: '修改商品属性'},
+        hidden: true
+      },
+      {
+        path: 'brand',
+        name: 'brand',
+        component: () => import('@/views/pms/brand/index.vue'),
+        meta: {title: '品牌管理', icon: 'product-brand'}
+      },
+      {
+        path: 'addBrand',
+        name: 'addBrand',
+        component: () => import('@/views/pms/brand/add.vue'),
+        meta: {title: '添加品牌'},
+        hidden: true
+      },
+      {
+        path: 'updateBrand',
+        name: 'updateBrand',
+        component: () => import('@/views/pms/brand/update.vue'),
+        meta: {title: '编辑品牌'},
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/oms',
+    component: Layout,
+    redirect: '/oms/order',
+    name: 'oms',
+    meta: {title: '订单', icon: 'order'},
+    children: [
+      {
+        path: 'order',
+        name: 'order',
+        component: () => import('@/views/oms/order/index.vue'),
+        meta: {title: '订单列表', icon: 'product-list'}
+      },
+      {
+        path: 'orderDetail',
+        name: 'orderDetail',
+        component: () => import('@/views/oms/order/orderDetail.vue'),
+        meta: {title: '订单详情'},
+        hidden:true
+      },
+      {
+        path: 'deliverOrderList',
+        name: 'deliverOrderList',
+        component: () => import('@/views/oms/order/deliverOrderList.vue'),
+        meta: {title: '发货列表'},
+        hidden:true
+      },
+      {
+        path: 'orderSetting',
+        name: 'orderSetting',
+        component: () => import('@/views/oms/order/setting'),
+        meta: {title: '订单设置', icon: 'order-setting'}
+      },
+      {
+        path: 'returnApply',
+        name: 'returnApply',
+        component: () => import('@/views/oms/apply/index'),
+        meta: {title: '退货申请处理', icon: 'order-return'}
+      },
+      {
+        path: 'returnReason',
+        name: 'returnReason',
+        component: () => import('@/views/oms/apply/reason'),
+        meta: {title: '退货原因设置', icon: 'order-return-reason'}
+      },
+      {
+        path: 'returnApplyDetail',
+        name: 'returnApplyDetail',
+        component: () => import('@/views/oms/apply/applyDetail'),
+        meta: {title: '退货原因详情'},
+        hidden:true
+      }
+    ]
+  },
+  {
     path:'/ums',
     component: Layout,
     redirect: '/ums/admin',
@@ -35,58 +183,59 @@ export const asyncRouterMap = [
       {
         path: 'role',
         name: 'role',
-        component: () => import('@/views/ums/role/index'),
+        component: () => import('@/views/ums/role/index.vue'),
         meta: {title: '角色列表', icon: 'ums-role'}
       },
       {
         path: 'allocMenu',
         name: 'allocMenu',
-        component: () => import('@/views/ums/role/allocMenu'),
+        component: () => import('@/views/ums/role/allocMenu.vue'),
         meta: {title: '分配菜单'},
         hidden: true
       },
       {
         path: 'allocResource',
         name: 'allocResource',
-        component: () => import('@/views/ums/role/allocResource'),
+        component: () => import('@/views/ums/role/allocResource.vue'),
         meta: {title: '分配资源'},
         hidden: true
       },
       {
         path: 'menu',
         name: 'menu',
-        component: () => import('@/views/ums/menu/index'),
+        component: () => import('@/views/ums/menu/index.vue'),
         meta: {title: '菜单列表', icon: 'ums-menu'}
       },
       {
         path: 'addMenu',
         name: 'addMenu',
-        component: () => import('@/views/ums/menu/add'),
+        component: () => import('@/views/ums/menu/add.vue'),
         meta: {title: '添加菜单'},
         hidden: true
       },
       {
         path: 'updateMenu',
         name: 'updateMenu',
-        component: () => import('@/views/ums/menu/update'),
+        component: () => import('@/views/ums/menu/update.vue'),
         meta: {title: '修改菜单'},
         hidden: true
       },
       {
         path: 'resource',
         name: 'resource',
-        component: () => import('@/views/ums/resource/index'),
+        component: () => import('@/views/ums/resource/index.vue'),
         meta: {title: '资源列表', icon: 'ums-resource'}
       },
       {
         path: 'resourceCategory',
         name: 'resourceCategory',
-        component: () => import('@/views/ums/resource/categoryList'),
+        component: () => import('@/views/ums/resource/categoryList.vue'),
         meta: {title: '资源分类'},
         hidden: true
       }
     ]
-  }
+  },
+  
 ]
 
 const router = createRouter({

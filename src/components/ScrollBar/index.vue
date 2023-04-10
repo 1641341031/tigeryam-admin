@@ -41,7 +41,7 @@ export default {
 </template>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import '../../styles/variables.scss';
+@import '@/styles/variables.scss';
 .scroll-container {
   position: relative;
   width: 100%;

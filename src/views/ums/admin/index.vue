@@ -99,14 +99,14 @@ function handleSelectRole(index,row){
   getRoleListByAdmin(row.id);
 }
 
-let allocRoleIds = reactive([])
+const allocRoleIds = ref([])
 function getRoleListByAdmin(adminId) {
   getRoleByAdmin(adminId).then(response => {
-    let allocRoleList = response.data.data;
-    allocRoleIds=reactive([]);
+    let allocRoleList = response.data.data
+    allocRoleIds.value = []
     if(allocRoleList!=null&&allocRoleList.length>0){
       for(let i=0;i<allocRoleList.length;i++){
-        allocRoleIds.push(allocRoleList[i].id);
+        allocRoleIds.value.push(allocRoleList[i].id);
       }
     }
   });
@@ -181,7 +181,7 @@ function handleAllocDialogConfirm(){
   }).then(() => {
     let params = new URLSearchParams();
     params.append("adminId", allocAdminId.value);
-    params.append("roleIds", allocRoleIds);
+    params.append("roleIds", allocRoleIds.value);
     allocRole(params).then(response => {
       ElMessage({
         message: '分配成功！',
@@ -216,7 +216,7 @@ getAllRoleList()
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
           <el-form-item label="输入搜索：">
-            <el-input v-model="listQuery.keyword" class="input-width" placeholder="帐号/昵称" />
+            <el-input v-model="listQuery.keyword" class="input-width" placeholder="帐号/昵称" clearable />
           </el-form-item>
         </el-form>
       </div>

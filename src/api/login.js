@@ -1,12 +1,13 @@
 import request from '@/utils/request.js'
 
-export function login(username, password) {
+export function login(username, password, code) {
     return request({
         url: '/admin/login',
         method: 'post',
         data: {
             username,
-            password
+            password,
+            code
         }
     })
 }

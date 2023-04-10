@@ -27,7 +27,7 @@ export default {
         return 'svg-icon'
       }
     }
-  }
+  },
 }
 </script>
 
